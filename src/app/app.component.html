@@ -1,3 +1,75 @@
-<div *ngFor="let contact of contacts">
-<div>{{contact.nom}}</div>
+<div class="container">
+	<div class="container-fluid p-0">
+		<div class="row">
+			<div class="col-xl-8">
+				<div class="card">
+					<div class="card-header pb-0">
+						<div class="card-actions float-right">
+							<div class="dropdown show">
+								<a href="#" data-toggle="dropdown" data-display="static">
+									<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+										fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+										stroke-linejoin="round" class="feather feather-more-horizontal align-middle">
+										<circle cx="12" cy="12" r="1"></circle>
+										<circle cx="19" cy="12" r="1"></circle>
+										<circle cx="5" cy="12" r="1"></circle>
+									</svg>
+								</a>
+
+								<div class="dropdown-menu dropdown-menu-right">
+									<a class="dropdown-item" href="#">Action</a>
+									<a class="dropdown-item" href="#">Another action</a>
+									<a class="dropdown-item" href="#">Something else here</a>
+								</div>
+							</div>
+						</div>
+						<h5 class="card-title mb-0">Contacts</h5>
+					</div>
+					<div class="card-body">
+						<table class="table table-striped" style="width:100%">
+							<thead>
+								<tr>
+									<th>Nom</th>
+									<th>Prenom</th>
+									<th>Adresse</th>
+									<th>Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let contact of contacts">
+									<td>{{contact?.nom}}</td>
+									<td>{{contact?.prenom}}</td>
+									<td>{{contact?.adresse}}</td>
+									<td>
+										<button type="button"
+											class="btn btn-outline-info btn-circle btn-lg ml-2"><i
+												class="fa fa-trash"></i> </button>
+										<button type="button"
+											class="btn btn-outline-info btn-lg btn-circle ml-2"><i
+												class="fa fa-edit"></i> </button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-xl-4">
+				<div class="card">
+					<div class="card-header">
+
+					</div>
+					<div class="card-body">
+						<div class="row g-0">
+
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
 </div>
