@@ -1,0 +1,56 @@
+<div *ngIf="contact">
+	<div class="container">
+		<div class="main-body">
+			<div class="row">
+				<div class="col-lg-2">
+					 
+				</div>
+				<div class="col-lg-8">
+					<div class="contact">
+						<div class="card">
+							<div class="card-body">
+								<div class="row mb-3">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Name</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<input id="contact-nom" [(ngModel)]="contact.nom">
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Prenom</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<input id="contact-prenom" [(ngModel)]="contact.prenom">
+									</div>
+								</div>
+								<div class="row mb-3">
+									<div class="col-sm-3">
+										<h6 class="mb-0">Address</h6>
+									</div>
+									<div class="col-sm-9 text-secondary">
+										<input id="contact-adresse" [(ngModel)]="contact.adresse" />
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-sm-3"></div>
+									<div class="col-sm-3 text-secondary">
+										<button type="button" (click)="save()" class="btn btn-danger px-4">Cancle
+										</button>
+									</div>
+									<div class="col-sm-6 text-secondary">
+
+										<button type="button" (click)="goBack()" class="btn btn-success px-4">Save
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+</div>

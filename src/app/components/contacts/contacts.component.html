@@ -1,0 +1,34 @@
+<div *ngIf="!contacts.length">
+	<div class="spinner-border m-5" role="status">
+		<span class="sr-only"></span>
+	</div>
+</div>
+
+<div *ngIf="contacts.length">
+
+	<table datatable class="row-border hover" width="100%">
+		<thead>
+			<tr>
+				<th scope="col">#</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Prenom</th>
+				<th scope="col">Adresse</th> 
+				<th scope="col">Action</th>
+
+			</tr>
+		</thead>
+		<tbody>
+			<tr *ngFor="let contact of contacts">
+				<th scope="row">{{contact?.id}}</th>
+				<td>{{contact?.nom}}</td>
+				<td>{{contact?.prenom}}</td>
+				<td>{{contact?.adresse}}</td>
+				<td><a routerLink="/contact/{{contact?.id}}" class="btn btn-sm btn-info badge" type="button"><i
+							class="bi bi-person-workspace"></i>Edit</a> 
+					<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i>Delete</button>
+
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
