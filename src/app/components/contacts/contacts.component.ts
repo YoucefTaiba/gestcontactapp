@@ -15,7 +15,7 @@ export class ContactsComponent implements OnInit {
   constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
-    this.getContacts();
+    this.getContacts() ;
     this.dtOptions = {
       pagingType: 'full_numbers',
       pageLength: 10,
