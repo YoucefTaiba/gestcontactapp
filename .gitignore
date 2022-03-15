@@ -7,7 +7,10 @@
 /bazel-out
 
 # Node
-/node_modules
+/node_modules/*
+!/node_modules/jquery/dist/jquery.min.js
+!/node_modules/datatables.net/
+!/node_modules/datatables.net-dt/
 npm-debug.log
 yarn-error.log
 
