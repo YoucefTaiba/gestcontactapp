@@ -18,16 +18,16 @@ export class RegistrationComponent implements OnInit {
     public router: Router
   ) {
     this.signupForm = this.fb.group({
-      name: [''],
+      username: [''],
       password: [''],
     });
   }
   ngOnInit() { }
   registerUser() {
     this.authService.registre(this.signupForm.value).subscribe((res) => {
-      if (res.result) {
+      if (res) {
         this.signupForm.reset();
-        this.router.navigate(['log-in']);
+        this.router.navigate(['login']);
       }
     });
   }

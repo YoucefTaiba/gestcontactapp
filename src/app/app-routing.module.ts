@@ -12,9 +12,12 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
 import { LoginComponent } from './components/login/login.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { HomeComponent } from './components/home/home.component';
+import { AppComponent } from './app.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
+  { path: 'logout', component:AppComponent }, 
   { path: 'registre', component: RegistrationComponent},
   { path: 'home', component: HomeComponent},
   { path: 'contacts', component: ContactsComponent },
