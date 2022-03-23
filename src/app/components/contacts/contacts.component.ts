@@ -10,20 +10,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class ContactsComponent implements OnInit {
   contacts: Contact[] = [];
-  dtOptions: DataTables.Settings = {};
 
   constructor(private contactService: ContactService) { }
 
   ngOnInit(): void {
     this.getContacts() ;
-    this.dtOptions = {
-      pagingType: 'full_numbers',
-      pageLength: 10,
-      lengthChange: false, 
-      ordering: false,
-      searching: false,
-      info: false,
-    };
+
   }
   public getContacts(): void {
     this.contactService.getContacts().subscribe(

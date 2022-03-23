@@ -80,3 +80,5 @@ background-color: #f7f7fc;
     background-color: #fff;
     border-bottom: 0 solid transparent;
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
