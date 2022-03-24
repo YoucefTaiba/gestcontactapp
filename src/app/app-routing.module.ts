@@ -9,16 +9,14 @@ import { CompanysComponent } from './components/companys/companys.component';
 import { CompanyDetailsComponent } from './components/company-details/company-details.component';
 import { AddCompanyComponent } from './components/add-company/add-company.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { LoginComponent } from './components/login/login.component';
-import { RegistrationComponent } from './components/registration/registration.component';
+import { LoginComponent } from './components/login/login.component'; 
 import { HomeComponent } from './components/home/home.component';
 import { AppComponent } from './app.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent},
-  { path: 'logout', component:AppComponent }, 
-  { path: 'registre', component: RegistrationComponent},
+  { path: 'logout', component:AppComponent },  
   { path: 'home', component: HomeComponent},
   { path: 'contacts', component: ContactsComponent },
   { path: 'contact/:id', component: ContactDetailsComponent },

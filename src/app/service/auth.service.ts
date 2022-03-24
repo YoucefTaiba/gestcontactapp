@@ -10,19 +10,17 @@ import {
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
-@Injectable( {
-    providedIn: 'root',
-} )
+@Injectable(  )
 export class AuthService {
     endpoint: string = environment.apiBaseUrl;
     headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
     currentUser = {};
     constructor( private http: HttpClient, public router: Router ) { } 
-    //registre
-    registre( user: User ): Observable<any> {
-        let api = `${this.endpoint}/user/add`;
-        return this.http.post( api, user ).pipe( catchError( this.handleError ) );
-    }
+    // //registre
+    // registre( user: User ): Observable<any> {
+    //     let api = `${this.endpoint}/user/add`;
+    //     return this.http.post( api, user ).pipe( catchError( this.handleError ) );
+    // }
     // Sign-in
     signIn( user: User ) {
         return this.http

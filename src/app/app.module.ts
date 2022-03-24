@@ -19,18 +19,17 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
-import { MatListModule } from '@angular/material/list';
-import { RegistrationComponent } from './components/registration/registration.component';
+import { MatListModule } from '@angular/material/list'; 
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HomeComponent } from './components/home/home.component';
 import { GestContactInterceptor } from './gest-contact.interceptor';
+import { AuthService } from './service/auth.service';
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    RegistrationComponent,
+    AppComponent, 
+    LoginComponent, 
     ContactsComponent,
     AddContactComponent,
     PageNotFoundComponent,
@@ -49,7 +48,9 @@ import { GestContactInterceptor } from './gest-contact.interceptor';
     MatToolbarModule, MatSidenavModule,
     MatIconModule, MatListModule, MatProgressSpinnerModule
   ],
-  providers: [{
+  providers: [
+    AuthService,
+    {
     provide: HTTP_INTERCEPTORS,
     useClass: GestContactInterceptor,
     multi: true

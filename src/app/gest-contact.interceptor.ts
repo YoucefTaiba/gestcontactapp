@@ -44,7 +44,7 @@ export class GestContactInterceptor implements HttpInterceptor {
                         );
                     }
                 } else {
-                    return throwError(() => new Error( requestError.message ) );
+                    return throwError(() => new Error( requestError.message || requestError.statusText) );
                 }
             } )
         );
