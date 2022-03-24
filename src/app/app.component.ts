@@ -15,12 +15,13 @@ export class AppComponent implements OnInit {
         private router: Router) {
         this.router.events.forEach((e:Event) => {
             if (e instanceof NavigationEnd) {
+                this.isLoggedIn = this.authService.isLoggedIn;
             }
             // NavigationEnd
             // NavigationCancel
             // NavigationError
             // RoutesRecognized
-            this.isLoggedIn = this.authService.isLoggedIn();
+            
         });
     }
     ngOnInit() {

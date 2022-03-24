@@ -1,7 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, throwError } from 'rxjs'; 
 import {
     HttpClient,
     HttpHeaders,
@@ -26,23 +25,23 @@ export class AuthService {
         return this.http
             .post<any>( `${this.endpoint}/login`, user )
             .subscribe(( res: any ) => {
-                localStorage.setItem( 'access_token', res.access_token );
+                localStorage.setItem( 'acesse_token', res.acesse_token );
                 localStorage.setItem( 'refresh_token', res.refresh_token );
                 this.router.navigate( ['home'] ); 
             } );
     }
-    refreshToken() {
+    get refreshToken() {
         return localStorage.getItem( 'refresh_token' );
     }
-    getToken() {
-        return localStorage.getItem( 'access_token' );
+   get getToken() { 
+        return localStorage.getItem( 'acesse_token' );
     }
-    isLoggedIn(): boolean {
-        let authToken = localStorage.getItem( 'access_token' ); 
-        return authToken !== null ? true : false;
+   get  isLoggedIn(): boolean {
+        let authToken = localStorage.getItem( 'acesse_token' );  
+        return     (authToken == null || authToken ===" undefined") ? false : true;
     }
     doLogout() {
-         localStorage.removeItem( 'access_token' );
+         localStorage.removeItem( 'acesse_token' );
          localStorage.removeItem( 'refresh_token' );
          this.router.navigate( ['login'] ); 
     }

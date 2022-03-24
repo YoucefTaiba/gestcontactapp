@@ -15,7 +15,7 @@ import { AuthService } from './service/auth.service'
 export class GestContactInterceptor implements HttpInterceptor {
     private refreshTokenInProgress = false;
     private refreshTokenSubject = new BehaviorSubject( null );
-    constructor( private authService: AuthService ) { }
+    constructor( public  authService: AuthService ) { }
 
 
     intercept(
@@ -50,9 +50,9 @@ export class GestContactInterceptor implements HttpInterceptor {
         );
     }
     addAuthToken( request: HttpRequest<any> ) {
-        const token = this.authService.getToken();
+        const token = this.authService.getToken;
 
-        if ( !token ) {
+        if ( token == null || token === "undefined" ) {
             return request;
         }
 
