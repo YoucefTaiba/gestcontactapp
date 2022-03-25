@@ -14,52 +14,53 @@ import { AuthService } from './service/auth.service'
 @Injectable()
 export class GestContactInterceptor implements HttpInterceptor {
     private refreshTokenInProgress = false;
-    private refreshTokenSubject = new BehaviorSubject( null );
-    constructor( public  authService: AuthService ) { }
+    private refreshTokenSubject = new BehaviorSubject(null);
+    constructor(public authService: AuthService) { }
 
 
     intercept(
         request: HttpRequest<any>,
         next: HttpHandler
     ): Observable<HttpEvent<any>> {
-        return next.handle( this.addAuthToken( request ) ).pipe(
-            catchError(( requestError: HttpErrorResponse ) => {
-                if ( requestError && requestError.status === 401 ) {
-                    if ( this.refreshTokenInProgress ) {
+        return next.handle(this.addAuthToken(request)).pipe(
+            catchError((requestError: HttpErrorResponse) => {
+                if (requestError && (requestError.status === 401 || requestError.status === 403)) {
+                    
+                    if (this.refreshTokenInProgress) {
                         return this.refreshTokenSubject.pipe(
-                            filter(( result ) => result !== null ),
-                            take( 1 ),
-                            switchMap(() => next.handle( this.addAuthToken( request ) ) )
+                            filter((result) => result !== null),
+                            take(1),
+                            switchMap(() => next.handle(this.addAuthToken(request)))
                         );
                     } else {
                         this.refreshTokenInProgress = true;
-                        this.refreshTokenSubject.next( null );
+                        this.refreshTokenSubject.next(null);
 
                         return this.refreshTokenSubject.pipe(
-                            switchMap(( token ) => {
-                                this.refreshTokenSubject.next( token );
-                                return next.handle( this.addAuthToken( request ) );
-                            } ),
-                            finalize(() => ( this.refreshTokenInProgress = false ) )
+                            switchMap((token) => {
+                                this.refreshTokenSubject.next(token);
+                                return next.handle(this.addAuthToken(request));
+                            }),
+                            finalize(() => (this.refreshTokenInProgress = false))
                         );
                     }
                 } else {
-                    return throwError(() => new Error( requestError.message || requestError.statusText) );
+                    return throwError(() => new Error(requestError.message || requestError.statusText));
                 }
-            } )
+            })
         );
     }
-    addAuthToken( request: HttpRequest<any> ) {
+    addAuthToken(request: HttpRequest<any>) {
         const token = this.authService.getToken;
 
-        if ( token == null || token === "undefined" ) {
+        if (token == null || token === "undefined") {
             return request;
         }
 
-        return request.clone( {
+        return request.clone({
             setHeaders: {
                 Authorization: `Bearer ${token}`,
             },
-        } );
+        });
     }
 }
