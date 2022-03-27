@@ -1,34 +1,47 @@
-<div *ngIf="!companys.length">
-	<div class="spinner-border m-5" role="status">
-		<span class="sr-only"></span>
-	</div>
-</div>
+<div class="list row">
+  <div class="col-md-3 ml-auto">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="name" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="searchCompany()">
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
 
-<div *ngIf="companys.length">
+    <table class="table table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>Company Name</th>
+        <th>Adresse</th>
+        <th>Tva</th>
+      </tr>
+      <tr *ngFor="let comapny of comapnys | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index">
+        <td>{{ comapny.id }}</td>
+        <td>{{ comapny.nom }}</td>
+        <td>{{ comapny.adresse }}</td>
+        <td>{{ comapny.tva }}</td>
+      </tr>
+    </table>
+    <div class="col-md-12">
+      <div >
+      <select (change)="handlePageSizeChange($event)">
+        <option *ngFor="let size of pageSizes" [ngValue]="size">
+          {{ size }}
+        </option>
+      </select>
+      </div>
+      <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+        (pageChange)="handlePageChange($event)">
+      </pagination-controls>
+    </div>
 
-	<table  class="row-border hover mb-2" >
-		<thead>
-			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Nom</th>
-				<th scope="col">Adresse</th>
-				<th scope="col">TVA</th> 
-				<th scope="col">Action</th>
-
-			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let company of companys">
-				<th scope="row">{{company?.id}}</th>
-				<td>{{company?.nom}}</td>
-				<td>{{company?.adresse}}</td>
-				<td>{{company?.tva}}</td>
-				<td><a routerLink="/company/{{company?.id}}" class="btn btn-sm btn-info badge" type="button"><i
-							class="bi bi-person-workspace"></i>Edit</a> 
-					<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i>Delete</button>
-
-				</td>
-			</tr>
-		</tbody>
-	</table>
+  </div>
 </div>

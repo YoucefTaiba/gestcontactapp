@@ -1,6 +1,6 @@
 
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs'; 
+import { Observable, throwError } from 'rxjs';
 import {
     HttpClient,
     HttpHeaders,
@@ -9,54 +9,60 @@ import {
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
-@Injectable(  )
+@Injectable()
 export class AuthService {
     endpoint: string = environment.apiBaseUrl;
-    headers = new HttpHeaders().set( 'Content-Type', 'application/json' );
+    headers = new HttpHeaders().set('Content-Type', 'application/json');
     currentUser = {};
-    constructor( private http: HttpClient, public router: Router ) { } 
+    constructor(private http: HttpClient, public router: Router) { }
     // //registre
     // registre( user: User ): Observable<any> {
     //     let api = `${this.endpoint}/user/add`;
     //     return this.http.post( api, user ).pipe( catchError( this.handleError ) );
     // }
     // Sign-in
-    signIn( user: User ) {
+    signIn(user: User) {
         return this.http
-            .post<any>( `${this.endpoint}/login`, user )
-            .subscribe(( res: any ) => {
-                localStorage.setItem( 'acesse_token', res.acesse_token );
-                localStorage.setItem( 'refresh_token', res.refresh_token );
-                this.router.navigate( ['home'] ); 
-            } );
+            .post<any>(`${this.endpoint}/login`, user)
+            .subscribe((res: any) => {
+                localStorage.setItem('acesse_token', res.acesse_token);
+                localStorage.setItem('refresh_token', res.refresh_token);
+                this.router.navigate(['home']);
+            });
     }
     get refreshToken() {
-        return localStorage.getItem( 'refresh_token' );
+        this.http
+            .post<any>(`${this.endpoint}/token/refresh`, localStorage.getItem('refresh_token'))
+            .subscribe((res: any) => {
+                localStorage.setItem('acesse_token', res.acesse_token);
+                localStorage.setItem('refresh_token', res.refresh_token);
+            });
+        return localStorage.getItem('refresh_token');
     }
-   get getToken() { 
-        return localStorage.getItem( 'acesse_token' );
+    get getToken() {
+        return localStorage.getItem('acesse_token');
     }
-   get  isLoggedIn(): boolean {
-        let authToken = localStorage.getItem( 'acesse_token' );  
-        return     (authToken == null || authToken ===" undefined") ? false : true;
+    get isLoggedIn(): boolean {
+        let authToken = localStorage.getItem('acesse_token');
+        return (authToken == null || authToken === " undefined") ? false : true;
     }
     doLogout() {
-         localStorage.removeItem( 'acesse_token' );
-         localStorage.removeItem( 'refresh_token' );
-         this.router.navigate( ['login'] ); 
+        localStorage.removeItem('acesse_token');
+        localStorage.removeItem('refresh_token');
+        this.router.navigate(['login']);
     }
-    
-     
+
+
     // Error
-    handleError( error: HttpErrorResponse ) {
+    handleError(error: HttpErrorResponse) {
         let msg = '';
-        if ( error.error instanceof ErrorEvent ) {
+        if (error.error instanceof ErrorEvent) {
             // client-side error
             msg = error.error.message;
         } else {
             // server-side error
             msg = `Error Code: ${error.status}\nMessage: ${error.message}`;
         }
-        return throwError( msg );
+        return throwError(msg);
     }
 }

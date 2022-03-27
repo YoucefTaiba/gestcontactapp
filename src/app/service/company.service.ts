@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Company } from '../models/company.model';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs'; 
 
 
 @Injectable({
@@ -12,8 +12,15 @@ export class CompanyService {
 
   private apiServiceUrl = environment.apiBaseUrl;
   constructor(private http: HttpClient) { }
-  public getCompanys(): Observable<Company[]> {
-    return this.http.get<Company[]>(`${this.apiServiceUrl}/company/all`);
+
+  public getCompanys(name :string='',
+        page = 0, size = 3):any {
+    return this.http.get(`${this.apiServiceUrl}/company/all`,{
+            params: new HttpParams()
+                .set('name', name)  
+                .set('page', page.toString())
+                .set('size', size.toString())
+        });
   }
 
   public addCompany(contact: Company): Observable<Company[]> {
