@@ -27,5 +27,11 @@ export class ContactsComponent implements OnInit {
       }
     );
 
-  }
+  } 
+  deleteContact(contact:any) {
+      if (window.confirm('Are sure you want to delete this Contact ?')) { 
+//        this.crudApi.DeleteStudent(student.$key)
+//        this.toastr.success(student.firstName + ' successfully deleted!');
+      }
+    }
 }

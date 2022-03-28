@@ -17,6 +17,7 @@
         <th>Company Name</th>
         <th>Adresse</th>
         <th>Tva</th>
+        <th>Action</th>
       </tr>
       <tr *ngFor="let comapny of comapnys | paginate : {
                   itemsPerPage: pageSize,
@@ -28,6 +29,17 @@
         <td>{{ comapny.nom }}</td>
         <td>{{ comapny.adresse }}</td>
         <td>{{ comapny.tva }}</td>
+        <td class="text-center action-block">
+            <span
+              class="mr-2 btn btn-outline-primary btn-sm"
+              routerLink="/comapny/{{ comapny?.id }}"
+              >Edit</span
+            >
+            <span
+              class="btn btn-outline-danger btn-sm"
+              (click)="deleteCompany(comapny)"  >Delete</span
+            >
+          </td>
       </tr>
     </table>
     <div class="col-md-12">

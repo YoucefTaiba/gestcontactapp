@@ -44,6 +44,7 @@ export class GestContactInterceptor implements HttpInterceptor {
                             finalize(() => (this.refreshTokenInProgress = false))
                         );
                     }
+                    
                 } else {
                     return throwError(() => new Error(requestError.message || requestError.statusText));
                 }

@@ -27,6 +27,7 @@ export class AuthService {
             .subscribe((res: any) => {
                 localStorage.setItem('acesse_token', res.acesse_token);
                 localStorage.setItem('refresh_token', res.refresh_token);
+                localStorage.setItem('roles', res.roles);
                 this.router.navigate(['home']);
             });
     }
@@ -36,6 +37,7 @@ export class AuthService {
             .subscribe((res: any) => {
                 localStorage.setItem('acesse_token', res.acesse_token);
                 localStorage.setItem('refresh_token', res.refresh_token);
+                localStorage.setItem('roles', res.roles);
             });
         return localStorage.getItem('refresh_token');
     }
@@ -51,7 +53,13 @@ export class AuthService {
         localStorage.removeItem('refresh_token');
         this.router.navigate(['login']);
     }
-
+    get getRoles(): any {
+        const roles = localStorage.getItem('roles');;
+        if (roles) {
+          return  roles.split(",");
+        }
+        return {};
+      }
 
     // Error
     handleError(error: HttpErrorResponse) {
