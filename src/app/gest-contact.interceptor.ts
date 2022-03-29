@@ -24,26 +24,10 @@ export class GestContactInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         return next.handle(this.addAuthToken(request)).pipe(
             catchError((requestError: HttpErrorResponse) => {
-                if (requestError && (requestError.status === 401 || requestError.status === 403)) {
+                if (requestError && (requestError.status === 401 || requestError.status === 403)) { 
+                        this.authService.refreshToken();
+                        return next.handle(this.addAuthToken(request));  
                     
-                    if (this.refreshTokenInProgress) {
-                        return this.refreshTokenSubject.pipe(
-                            filter((result) => result !== null),
-                            take(1),
-                            switchMap(() => next.handle(this.addAuthToken(request)))
-                        );
-                    } else {
-                        this.refreshTokenInProgress = true;
-                        this.refreshTokenSubject.next(null);
-
-                        return this.refreshTokenSubject.pipe(
-                            switchMap((token) => {
-                                this.refreshTokenSubject.next(token);
-                                return next.handle(this.addAuthToken(request));
-                            }),
-                            finalize(() => (this.refreshTokenInProgress = false))
-                        );
-                    }
                 } else {
                     return throwError(() => new Error(requestError.message || requestError.statusText));
                 }

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Contact } from 'src/app/models/contact.model';
 import { ContactService } from 'src/app/service/contact.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 @Component({
@@ -10,10 +10,11 @@ import { Location } from '@angular/common';
   styleUrls: ['./contact-details.component.css']
 })
 export class ContactDetailsComponent implements OnInit {
-  contact: Contact | undefined;
+  contact!: Contact;
 
   constructor(private contactService: ContactService,
     private route: ActivatedRoute,
+    private router: Router,
     private location: Location) { }
 
   ngOnInit(): void {
@@ -24,8 +25,9 @@ export class ContactDetailsComponent implements OnInit {
     this.contactService.getContact(id)
       .subscribe((contact: Contact) => this.contact = contact);
   }
-  save(): void { 
-    this.location.back();
+  save(): void {
+    this.contactService.updateContact(this.contact?.id, this.contact);
+    this.router.navigate(['companys']);
   }
   goBack(): void {
     this.location.back();

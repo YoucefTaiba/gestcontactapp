@@ -1,34 +1,55 @@
-<div *ngIf="!companys.length">
-	<div class="spinner-border m-5" role="status">
-		<span class="sr-only"></span>
+<div class="list row">
+	<div class="col-md-3">
+		<pagination-controls previousLabel="Prev" nextLabel="Next"
+			[responsive]="true" (pageChange)="handlePageChange($event)">
+		</pagination-controls>
 	</div>
-</div>
-
-<div *ngIf="companys.length">
-
-	<table  class="row-border hover mb-2" >
-		<thead>
+	<div class="col-md-3">
+		<select (change)="handlePageSizeChange($event)">
+			<option *ngFor="let size of pageSizes" [ngValue]="size">{{
+				size }}</option>
+		</select>
+	</div>
+	<div class="col-md-3">
+		<span class="mr-2 btn-outline-primary btn-sm"
+					routerLink="/add-company">Add</span>
+	</div>
+	<div class="col-md-3 ml-auto">
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Search by title"
+				[(ngModel)]="name" />
+			<div class="input-group-append">
+				<button class="btn btn-outline-secondary" type="button"
+					(click)="searchCompany()">Search</button>
+			</div>
+		</div>
+	</div> 
+	<div class="col-md-12"> 
+		<table class="table table-bordered">
 			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Nom</th>
-				<th scope="col">Adresse</th>
-				<th scope="col">TVA</th> 
-				<th scope="col">Action</th>
-
+				<th>ID</th>
+				<th>Company Name</th>
+				<th>Adresse</th>
+				<th>Tva</th>
+				<th>Action</th>
 			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let company of companys">
-				<th scope="row">{{company?.id}}</th>
-				<td>{{company?.nom}}</td>
-				<td>{{company?.adresse}}</td>
-				<td>{{company?.tva}}</td>
-				<td><a routerLink="/company/{{company?.id}}" class="btn btn-sm btn-info badge" type="button"><i
-							class="bi bi-person-workspace"></i>Edit</a> 
-					<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i>Delete</button>
+			<tr
+				*ngFor="let company of companys | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                }; let i = index">
+				<td>{{ company.id }}</td>
+				<td>{{ company.nom }}</td>
+				<td>{{ company.adresse }}</td>
+				<td>{{ company.tva }}</td>
+				<td class="text-center action-block"><span
+					class="mr-2 btn-outline-primary btn-sm"
+					routerLink="/company/{{ company?.id }}">Edit</span> <span
+					class="btn-outline-danger btn-sm" (click)="deleteCompany(company)">Delete</span>
 
 				</td>
 			</tr>
-		</tbody>
-	</table>
+		</table>
+	</div>
 </div>

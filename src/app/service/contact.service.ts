@@ -15,15 +15,15 @@ export class ContactService {
   public getContacts(): Observable<Contact[]> {
     return this.http.get<Contact[]>(`${this.apiServiceUrl}/contact/all`);
   }
-   public getContact(contactId: number): Observable<Contact > {
-    return this.http.get<Contact >(`${this.apiServiceUrl}/contact/${contactId}`);
+  public getContact(contactId: number): Observable<Contact> {
+    return this.http.get<Contact>(`${this.apiServiceUrl}/contact/find/${contactId}`);
   }
 
-  public addContact(contact: Contact): Observable<Contact > {
+  public addContact(contact: Contact): Observable<Contact> {
     return this.http.post<Contact>(`${this.apiServiceUrl}/contact/add`, contact);
   }
-  public updateContact(contact: Contact): Observable<Contact > {
-    return this.http.put<Contact >(`${this.apiServiceUrl}/contact/update`, contact);
+  public updateContact(id: number, contact: Contact): Observable<Contact> {
+    return this.http.put<Contact>(`${this.apiServiceUrl}/contact/update/` + id, contact);
   }
   public deleteContact(contactId: number): Observable<Contact[]> {
     return this.http.delete<Contact[]>(`${this.apiServiceUrl}/contact/delete/${contactId}`);

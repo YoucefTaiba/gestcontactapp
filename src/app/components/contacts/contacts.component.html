@@ -23,11 +23,16 @@
 				<td>{{contact?.nom}}</td>
 				<td>{{contact?.prenom}}</td>
 				<td>{{contact?.adresse}}</td>
-				<td><a routerLink="/contact/{{contact?.id}}" class="btn btn-sm btn-info badge" type="button"><i
-							class="bi bi-person-workspace"></i>Edit</a> 
-					<button class="btn btn-sm btn-danger badge" type="button"><i class="fa fa-trash"></i>Delete</button>
-
-				</td>
+				<td class="text-center action-block">
+			            <span
+			              class="mr-2 btn btn-outline-primary btn-sm"
+			              routerLink="/contact/{{ contact.id }}"
+			              >Edit</span >
+			            <span
+			              class="btn btn-outline-danger btn-sm"
+			              (click)="deleteContact(contact)"  >Delete</span >
+          </td>
+				 
 			</tr>
 		</tbody>
 	</table>

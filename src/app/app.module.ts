@@ -25,7 +25,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HomeComponent } from './components/home/home.component';
 import { GestContactInterceptor } from './gest-contact.interceptor';
-import { AuthService } from './service/auth.service';
+import { AuthService } from './service/auth.service'; 
+import { NgxPaginationModule } from 'ngx-pagination';
 @NgModule({
   declarations: [
     AppComponent, 
@@ -46,7 +47,8 @@ import { AuthService } from './service/auth.service';
     AppRoutingModule, DataTablesModule, ReactiveFormsModule,
     FormsModule, BrowserAnimationsModule, LayoutModule,
     MatToolbarModule, MatSidenavModule,
-    MatIconModule, MatListModule, MatProgressSpinnerModule
+    MatIconModule, MatListModule, MatProgressSpinnerModule,
+    NgxPaginationModule
   ],
   providers: [
     AuthService,
