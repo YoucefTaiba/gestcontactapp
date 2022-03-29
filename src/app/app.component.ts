@@ -27,7 +27,7 @@ export class AppComponent implements OnInit {
         } );
     }
     ngOnInit() {
-        this.isLoggedIn = !!this.authService.getToken;
+        this.isLoggedIn =  this.authService.isLoggedIn;
         if ( this.isLoggedIn ) {
             const roles = this.authService.getRoles;
             this.showManager = roles.includes( 'ROLE_MANGER' );

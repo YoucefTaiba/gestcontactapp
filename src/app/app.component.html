@@ -14,7 +14,7 @@
 			</ul>
 			<ul class="navbar-nav mr-auto" *ngIf="isLoggedIn">
 				<li class="nav-item ">
-					 <button class="btn btn-outline-success my-2 my-sm-0" (click)="logout()">LogOut</button>
+					 <button class="btn-outline-danger" (click)="logout()">LogOut</button>
 				</li>
 			</ul>
 			<ul class="navbar-nav ml-auto"  *ngIf="!isLoggedIn">

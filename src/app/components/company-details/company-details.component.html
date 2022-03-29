@@ -1,1 +1,50 @@
-<p>company-details works!</p>
+ 
+<div *ngIf="company">
+    <div class="container">
+        <div class="main-body">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="company">
+                        <div class="card">
+                            <div class="card-body">
+                                <!-- Form Row-->
+                                <!-- Form Group (  nom)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="contact-adresse">Name</label>
+                                    <input class="form-control" id="contact-adresse" type="text" placeholder="address"
+                                        [(ngModel)]="company.nom">
+                                </div>
+                                <!-- Form Group (  address)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="contact-adresse">Address</label>
+                                    <input class="form-control" id="contact-adresse" type="text" placeholder="address"
+                                        [(ngModel)]="company.adresse">
+                                </div>
+                                <!-- Form Group (tva)-->
+                                <div class="mb-3">
+                                    <label class="small mb-1" for="contact-adresse">TVA</label>
+                                    <input class="form-control" id="contact-adresse" type="text" placeholder="address"
+                                        [(ngModel)]="company.tva">
+                                </div>
+                                <!-- Save changes button-->
+                                <div class="row">
+                                    <div class="col-sm-3"></div>
+                                    <div class="col-sm-3 text-secondary">
+                                        <button type="button" (click)="goBack()" class="btn btn-danger px-4">Cancle
+                                        </button>
+                                    </div>
+                                    <div class="col-sm-6 text-secondary">
+
+                                        <button type="button" (click)="save()" class="btn btn-success px-4">Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

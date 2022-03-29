@@ -1,7 +1,7 @@
 <div class="pt-3 pb-2 mb-3 border-bottom">
-  <h2 class="h2">Add Student</h2>
+  <h2 class="h2">Add Contact</h2>
 </div>
-<form [formGroup]="studentForm" (ngSubmit)="submitStudentData()" novalidate>
+<form [formGroup]="contactForm" (ngSubmit)="submitContactData()" novalidate>
   <div class="row">
     <div class="col-lg-5 col-md-12 col-sm-12">
       <div class="row">
@@ -14,12 +14,12 @@
             required
           />
           <!-- errors-->
-          <p *ngIf="firstName!.touched && firstName!.invalid" class="error">
+          <!-- <p *ngIf="firstName.touched && firstName.invalid" class="error">
             <sup>*</sup>Please enter atleast first name
           </p>
-          <p *ngIf="firstName!.errors?.['minlength']" class="error">
+          <p *ngIf="firstName.errors?.['minlength']" class="error">
             <sup>*</sup>Name shouldn't be less than 2 words
-          </p>
+          </p> -->
         </div>
         <div class="col-md-12 mb-3">
           <label>Last name</label>
@@ -28,37 +28,20 @@
       </div>
       <div class="row">
         <div class="col-md-12 mb-3">
-          <label>Email</label>
-          <input
-            type="email"
-            formControlName="email"
-            class="form-control"
-            required
-          />
-          <!-- errors-->
-          <p *ngIf="email!.touched && email!.invalid" class="error">
-            <sup>*</sup>Please provide email
-          </p>
-          <p *ngIf="email!.errors?.['pattern']" class="error">
-            <sup>*</sup>Please enter correct email
-          </p>
-        </div>
-        <div class="col-md-12 mb-3">
-          <label>Mobile number</label>
+          <label>Adresse</label>
           <input
             type="text"
-            formControlName="mobileNumber"
+            formControlName="adresse"
             class="form-control"
             required
           />
           <!-- errors-->
-          <p *ngIf="mobileNumber!.touched && mobileNumber!.invalid" class="error">
-            <sup>*</sup>Please provide contact number
-          </p>
-          <p *ngIf="mobileNumber!.errors?.['pattern']" class="error">
-            <sup>*</sup>Use numbers only number
-          </p>
+          <!-- <p *ngIf="adresse.touched && adresse.invalid" class="error">
+            <sup>*</sup>Please provide email
+          </p> -->
+           
         </div>
+        
       </div>
       <div class="form-group text-right">
         <button
@@ -71,9 +54,9 @@
         <button
           type="submit"
           class="btn btn-success"
-          [disabled]="!studentForm.valid"
+          [disabled]="!contactForm.valid"
         >
-          Add Student
+          Add Contact
         </button>
       </div>
     </div>

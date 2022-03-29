@@ -1,70 +1,56 @@
 import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CompanyService } from 'src/app/service/company.service';
 
-@Component( {
+@Component({
     selector: 'app-add-contact',
     templateUrl: './add-contact.component.html',
     styleUrls: ['./add-contact.component.css']
-} )
+})
 export class AddContactComponent implements OnInit {
-
-
-    studentForm: FormGroup;
+    contactForm: FormGroup ;
     constructor(
+        private companyService: CompanyService,
         public fb: FormBuilder
     ) {
-        this.studentForm = this.fb.group( {
-            firstName: ['', [Validators.required, Validators.minLength( 2 )]],
-            lastName: [''],
-            email: [
-                '',
-                [
-                    Validators.required,
-                    Validators.pattern( '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$' ),
-                ],
-            ],
-            mobileNumber: ['', [Validators.required, Validators.pattern( '^[0-9]+$' )]],
-        } );
+        this.contactForm = this.fb.group({
+            firstName: ['', [Validators.required, Validators.minLength(3)]],
+            lastName: ['', [Validators.required, Validators.minLength(3)]],
+            adresse: ['']
+        });
     }
-    ngOnInit() {
-        //    this.crudApi.GetStudentsList();
-        this.studenForm();
+    ngOnInit() { 
+        //  this.contacteForm();
     }
-    studenForm() {
-        this.studentForm = this.fb.group( {
-            firstName: ['', [Validators.required, Validators.minLength( 2 )]],
-            lastName: [''],
-            email: [
-                '',
-                [
-                    Validators.required,
-                    Validators.pattern( '^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$' ),
-                ],
-            ],
-            mobileNumber: ['', [Validators.required, Validators.pattern( '^[0-9]+$' )]],
-        } );
+    contacteForm() {
+        this.contactForm = this.fb.group({
+            firstName: ['', [Validators.required, Validators.minLength(3)]],
+            lastName: ['', [Validators.required, Validators.minLength(3)]],
+            adresse: ['']
+        });
     }
-    get firstName() {
-        return this.studentForm.get( 'firstName' );
+    get getFirstName() {
+        return this.contactForm.get('firstname');
     }
-    get lastName() {
-        return this.studentForm.get( 'lastName' );
+    get getLastName() {
+        return this.contactForm.get('lastname');
     }
-    get email() {
-        return this.studentForm.get( 'email' );
+    get getAdresse() {
+        return this.contactForm.get('adresse');
     }
-    get mobileNumber() {
-        return this.studentForm.get( 'mobileNumber' );
+    get getTva() {
+        return this.contactForm.get('tva');
     }
+
     ResetForm() {
-        this.studentForm.reset();
+        this.contactForm.reset();
     }
-    submitStudentData() {
-        //    this.crudApi.AddStudent(this.studentForm.value);
-        //    this.toastr.success(
-        //      this.studentForm.controls['firstName'].value + ' successfully added!'
-        //    );
+    submitContactData() {
+        this.companyService.addCompany(this.contactForm.value);
+        // this. .success(
+        //     this.contactForm.controls['firstName'].value + ' successfully added!'
+        // );
         this.ResetForm();
     }
 }

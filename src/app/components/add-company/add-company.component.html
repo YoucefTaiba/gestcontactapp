@@ -1,1 +1,77 @@
-<p>add-company works!</p>
+<div class="pt-3 pb-2 mb-3 border-bottom">
+  <h2 class="h2">Add Company</h2>
+</div>
+<form [formGroup]="companyForm" (ngSubmit)="submitCompanyData()" novalidate>
+  <div class="row">
+    <div class="col-lg-5 col-md-12 col-sm-12">
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label>Name</label>
+          <input
+            type="text"
+            formControlName="name"
+            class="form-control"
+            required
+          />
+          <!-- errors-->
+          <!-- <p *ngIf="name!.touched && name!.invalid" class="error">
+            <sup>*</sup>Please enter atleast first name
+          </p>
+          <p *ngIf="name!.errors?.['minlength']" class="error">
+            <sup>*</sup>Name shouldn't be less than 2 words
+          </p> -->
+        </div> 
+      </div>
+      <div class="row">
+        <div class="col-md-12 mb-3">
+          <label>Email</label>
+          <input
+            type="text"
+            formControlName="adresse"
+            class="form-control"
+            required
+          />
+          <!-- errors-->
+          <!-- <p *ngIf="adresse!.touched && adresse!.invalid" class="error">
+            <sup>*</sup>Please provide email
+          </p>
+          <p *ngIf="adresse!.errors?.['pattern']" class="error">
+            <sup>*</sup>Please enter correct email
+          </p> -->
+        </div>
+        <div class="col-md-12 mb-3">
+          <label>Tva</label>
+          <input
+            type="text"
+            formControlName="tva"
+            class="form-control"
+            required
+          />
+          <!-- errors-->
+          <!-- <p *ngIf="tva!.touched && tva!.invalid" class="error">
+            <sup>*</sup>Please provide company number
+          </p>
+          <p *ngIf="tva!.errors?.['pattern']" class="error">
+            <sup>*</sup>Use numbers only number
+          </p> -->
+        </div>
+      </div>
+      <div class="form-group text-right">
+        <button
+          type="button"
+          class="btn btn-secondary gap-right"
+          (click)="ResetForm()"
+        >
+          Reset
+        </button>
+        <button
+          type="submit"
+          class="btn btn-success"
+          [disabled]="!companyForm.valid"
+        >
+          Add Company
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
