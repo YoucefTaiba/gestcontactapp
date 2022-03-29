@@ -27,7 +27,9 @@ export class CompanyDetailsComponent implements OnInit {
       .subscribe((company: Company) => this.company = company);
   }
   save(): void {
-     this.companyService.updateCompany(this.company.id,this.company);
+     this.companyService.updateCompany(this.company.id,this.company).subscribe((response:any) => {
+         console.log(response)
+     });
      this.router.navigate(['companys']);
   }
   goBack(): void {

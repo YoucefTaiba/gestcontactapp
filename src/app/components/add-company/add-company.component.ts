@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CompanyService } from 'src/app/service/company.service';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-company',
@@ -12,10 +13,11 @@ export class AddCompanyComponent implements OnInit {
     public companyForm: FormGroup;
     constructor(
         private companyService: CompanyService,
+        private router: Router,
         public fb: FormBuilder
     ) {
         this.companyForm = this.fb.group({
-            name: ['', [Validators.required, Validators.minLength(3)]],
+            nom: ['', [Validators.required, Validators.minLength(3)]],
             adresse: [''],
             tva: ['', [Validators.pattern('^[0-9]+$')]],
         });
@@ -26,7 +28,7 @@ export class AddCompanyComponent implements OnInit {
     }
     companyeForm() {
         this.companyForm = this.fb.group({
-            name: ['', [Validators.required, Validators.minLength(3)]],
+            nom: ['', [Validators.required, Validators.minLength(3)]],
             adresse: [''],
             tva: ['', [Validators.pattern('^[0-9]+$')]],
         });
@@ -45,10 +47,10 @@ export class AddCompanyComponent implements OnInit {
         this.companyForm.reset();
     }
     submitCompanyData() {
-        this.companyService.addCompany(this.companyForm.value);
-        // this. .success(
-        //     this.companyForm.controls['firstName'].value + ' successfully added!'
-        // );
+        this.companyService.addCompany(this.companyForm.value).subscribe((response:any) => {
+            console.log(response)
+        });
+        this.router.navigate(['companys']);
         this.ResetForm();
     }
 

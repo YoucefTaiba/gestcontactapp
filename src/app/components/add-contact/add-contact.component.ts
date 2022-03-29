@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/service/company.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
     selector: 'app-add-contact',
@@ -9,9 +10,10 @@ import { CompanyService } from 'src/app/service/company.service';
     styleUrls: ['./add-contact.component.css']
 })
 export class AddContactComponent implements OnInit {
-    contactForm: FormGroup ;
+    contactForm!: FormGroup ;
     constructor(
         private companyService: CompanyService,
+        private router: Router,
         public fb: FormBuilder
     ) {
         this.contactForm = this.fb.group({
@@ -47,10 +49,10 @@ export class AddContactComponent implements OnInit {
         this.contactForm.reset();
     }
     submitContactData() {
-        this.companyService.addCompany(this.contactForm.value);
-        // this. .success(
-        //     this.contactForm.controls['firstName'].value + ' successfully added!'
-        // );
+        this.companyService.addCompany(this.contactForm.value).subscribe((response:any) => {
+            console.log(response)
+        });
+        this.router.navigate(['companys']);; 
         this.ResetForm();
     }
 }

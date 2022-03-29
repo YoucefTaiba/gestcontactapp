@@ -14,7 +14,10 @@ export class AuthService {
     endpoint: string = environment.apiBaseUrl;
     headers = new HttpHeaders().set('Content-Type', 'application/json');
     currentUser = {};
-    constructor(private http: HttpClient, public router: Router) { }
+    constructor(private http: HttpClient, public router: Router) {
+        localStorage.removeItem('acesse_token');
+        localStorage.removeItem('refresh_token');
+    }
     // //registre
     // registre( user: User ): Observable<any> {
     //     let api = `${this.endpoint}/user/add`;
@@ -31,14 +34,16 @@ export class AuthService {
                 this.router.navigate(['home']);
             });
     }
-    get refreshToken() {
-        this.http
+    refreshToken() {
+       return  this.http
             .post<any>(`${this.endpoint}/token/refresh`, localStorage.getItem('refresh_token'))
             .subscribe((res: any) => {
                 localStorage.setItem('acesse_token', res.acesse_token);
                 localStorage.setItem('refresh_token', res.refresh_token);
                 localStorage.setItem('roles', res.roles);
-            });
+            }); 
+    }
+    get getrefreshToken() {
         return localStorage.getItem('refresh_token');
     }
     get getToken() {
