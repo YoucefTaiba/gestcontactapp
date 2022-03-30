@@ -10,12 +10,11 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, throwError, from } from 'rxjs';
 import { catchError, filter, finalize, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './service/auth.service'
+import { Router } from '@angular/router';
 // const observable = from(Promise);
 @Injectable()
 export class GestContactInterceptor implements HttpInterceptor {
-    private refreshTokenInProgress = false;
-    private refreshTokenSubject = new BehaviorSubject(null);
-    constructor(public authService: AuthService) { }
+    constructor(private authService: AuthService, private router: Router) { }
 
 
     intercept(
@@ -24,13 +23,16 @@ export class GestContactInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<any>> {
         return next.handle(this.addAuthToken(request)).pipe(
             catchError((requestError: HttpErrorResponse) => {
-                if (requestError && (requestError.status === 401 || requestError.status === 403)) { 
+                // if (requestError && (requestError.status === 401 || requestError.status === 403)) {
+                    if (!this.authService.isLoggedIn) {
+                         this.router.navigate(['login']);
+                    } else {
                         this.authService.refreshToken();
-                        return next.handle(this.addAuthToken(request));  
-                    
-                } else {
-                    return throwError(() => new Error(requestError.message || requestError.statusText));
-                }
+                    }
+                //     return throwError(() => new Error(requestError.message || requestError.statusText));
+                // } 
+
+                return throwError(() => new Error(requestError.message || requestError.statusText));
             })
         );
     }
@@ -46,5 +48,6 @@ export class GestContactInterceptor implements HttpInterceptor {
                 Authorization: `Bearer ${token}`,
             },
         });
-    }
+    } 
+
 }

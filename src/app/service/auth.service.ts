@@ -35,8 +35,12 @@ export class AuthService {
             });
     }
     refreshToken() {
+        let token = localStorage.getItem('refresh_token');
+        
        return  this.http
-            .post<any>(`${this.endpoint}/token/refresh`, localStorage.getItem('refresh_token'))
+            .post<any>(`${this.endpoint}/token/refresh`, null,{headers: {
+                Authorization: `Bearer ${token}`,
+            }})
             .subscribe((res: any) => {
                 localStorage.setItem('acesse_token', res.acesse_token);
                 localStorage.setItem('refresh_token', res.refresh_token);

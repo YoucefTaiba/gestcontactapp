@@ -3,37 +3,56 @@
 		<span class="sr-only"></span>
 	</div>
 </div>
-
-<div *ngIf="contacts.length">
-
-	<table  class="row-border hover" width="100%">
-		<thead>
+<div class="list row">
+	<div class="col-md-2">
+		<a class="btn btn-success" routerLink="/add-contact">
+			Add Contact
+		</a>
+	</div>
+	<div class="col-md-4">
+		<pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+			(pageChange)="handlePageChange($event)">
+		</pagination-controls>
+	</div>
+	<div class="col-md-2">
+		<select (change)="handlePageSizeChange($event)">
+			<option *ngFor="let size of pageSizes" [ngValue]="size">{{
+				size }}</option>
+		</select>
+	</div>
+	
+	<div class="col-md-3 ml-auto">
+		<div class="input-group mb-3">
+			<input type="text" class="form-control" placeholder="Search by first name" [(ngModel)]="name" />
+			<div class="input-group-append">
+				<button class="btn btn-outline-secondary" type="button" (click)="searchContact()">Search</button>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-12">
+		<table class="table table-bordered">
 			<tr>
-				<th scope="col">#</th>
-				<th scope="col">Nom</th>
-				<th scope="col">Prenom</th>
-				<th scope="col">Adresse</th> 
-				<th scope="col">Action</th>
+				<th>ID</th>
+				<th>First Name</th>
+				<th>Last Name</th>
+				<th>Adress</th>
+				<th>Action</th>
+			</tr>
+			<tr *ngFor="let contact of contacts | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                }; let i = index">
+				<td>{{ contact.id }}</td>
+				<td>{{ contact.nom }}</td>
+				<td>{{ contact.prenom }}</td>
+				<td>{{ contact.adresse }}</td>
+				<td class="text-center action-block"><span class="mr-2 btn-outline-primary btn-sm"
+						routerLink="/contact/{{ contact?.id }}">Edit</span> <span class="btn-outline-danger btn-sm"
+						(click)="deleteContact(contact)">Delete</span>
 
+				</td>
 			</tr>
-		</thead>
-		<tbody>
-			<tr *ngFor="let contact of contacts">
-				<th scope="row">{{contact?.id}}</th>
-				<td>{{contact?.nom}}</td>
-				<td>{{contact?.prenom}}</td>
-				<td>{{contact?.adresse}}</td>
-				<td class="text-center action-block">
-			            <span
-			              class="mr-2 btn btn-outline-primary btn-sm"
-			              routerLink="/contact/{{ contact.id }}"
-			              >Edit</span >
-			            <span
-			              class="btn btn-outline-danger btn-sm"
-			              (click)="deleteContact(contact)"  >Delete</span >
-          </td>
-				 
-			</tr>
-		</tbody>
-	</table>
-</div>
+		</table>
+	</div>
+</div> 

@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CompanyService } from 'src/app/service/company.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from 'src/app/service/auth.service';
+import { ContactService } from 'src/app/service/contact.service';
 
 @Component({
     selector: 'app-add-contact',
@@ -10,49 +12,43 @@ import { ActivatedRoute, Router } from '@angular/router';
     styleUrls: ['./add-contact.component.css']
 })
 export class AddContactComponent implements OnInit {
-    contactForm!: FormGroup ;
+    contactForm!: FormGroup;
     constructor(
-        private companyService: CompanyService,
+        private contactService: ContactService,
+        private authService: AuthService,
         private router: Router,
         public fb: FormBuilder
     ) {
+        if (!this.authService.isLoggedIn) {
+            this.router.navigate(['login']);
+        }
         this.contactForm = this.fb.group({
-            firstName: ['', [Validators.required, Validators.minLength(3)]],
-            lastName: ['', [Validators.required, Validators.minLength(3)]],
+            nom: ['', [Validators.required, Validators.minLength(3)]],
+            prenom: ['', [Validators.required, Validators.minLength(3)]],
             adresse: ['']
         });
     }
-    ngOnInit() { 
+    ngOnInit() {
         //  this.contacteForm();
     }
     contacteForm() {
         this.contactForm = this.fb.group({
-            firstName: ['', [Validators.required, Validators.minLength(3)]],
-            lastName: ['', [Validators.required, Validators.minLength(3)]],
+            nom: ['', [Validators.required, Validators.minLength(3)]],
+            prenom: ['', [Validators.required, Validators.minLength(3)]],
             adresse: ['']
         });
     }
-    get getFirstName() {
-        return this.contactForm.get('firstname');
+    goBack() {
+        this.router.navigate(['contacts']);
     }
-    get getLastName() {
-        return this.contactForm.get('lastname');
-    }
-    get getAdresse() {
-        return this.contactForm.get('adresse');
-    }
-    get getTva() {
-        return this.contactForm.get('tva');
-    }
-
     ResetForm() {
         this.contactForm.reset();
     }
     submitContactData() {
-        this.companyService.addCompany(this.contactForm.value).subscribe((response:any) => {
+        this.contactService.addContact(this.contactForm.value).subscribe((response: any) => {
             console.log(response)
         });
-        this.router.navigate(['companys']);; 
+        this.router.navigate(['contacts']);;
         this.ResetForm();
     }
 }

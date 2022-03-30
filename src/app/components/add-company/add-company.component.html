@@ -1,56 +1,52 @@
-<div class="pt-3 pb-2 mb-3 border-bottom">
-  <h2 class="h2">Add Company</h2>
-</div>
-<form [formGroup]="companyForm" (ngSubmit)="submitCompanyData()" novalidate>
-  <div class="row">
-    <div class="col-lg-5 col-md-12 col-sm-12">
-      <div class="row">
-        <div class="col-md-12 mb-3">
-          <label>Name</label>
-          <input
-            type="text"
-            formControlName="nom"
-            class="form-control"
-            required
-          /> 
-        </div> 
-      </div>
-      <div class="row">
-        <div class="col-md-12 mb-3">
-          <label>Adresse</label>
-          <input
-            type="text"
-            formControlName="adresse"
-            class="form-control"
-            required
-          /> 
+<div class="container">
+  <div class="main-body">
+    <div class="row">
+      <div class="col-lg-8">
+        <div class="company">
+          <div class="card">
+            <div class="card-body">
+              <form [formGroup]="companyForm" (ngSubmit)="submitCompanyData()" novalidate>
+                <!-- Form Row-->
+                <!-- Form Group (  nom)-->
+                <div class="mb-3">
+                  <label class="small mb-1" for="company-nom">Name</label>
+                  <input class="form-control" id="company-nom" type="text" placeholder="nom" formControlName="nom"
+                    required>
+                </div>
+                <!-- Form Group (  address)-->
+                <div class="mb-3">
+                  <label class="small mb-1" for="company-adresse">Address</label>
+                  <input class="form-control" id="company-adresse" type="text" placeholder="address"
+                    formControlName="adresse" required>
+                </div>
+                <!-- Form Group (tva)-->
+                <div class="mb-3">
+                  <label class="small mb-1" for="company-tva">TVA</label>
+                  <input class="form-control" id="company-tva" type="text" placeholder="tva" formControlName="tva"
+                    required>
+                </div>
+                <!-- Save changes button-->
+                <div class="row"> 
+                  <div class="col-sm-3 text-secondary">
+                    <button type="button" (click)="goBack()" class="btn btn-danger px-4">Cancle
+                    </button>
+                  </div>
+                  <div class="col-sm-3 text-secondary">
+                    <button type="button" class="btn btn-secondary gap-right" (click)="ResetForm()">
+                      Reset
+                    </button>
+                  </div>
+                  <div class="col-sm-6 text-secondary">
+                    <button type="submit" class="btn btn-success" [disabled]="!companyForm.valid">
+                      Add Company
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-        <div class="col-md-12 mb-3">
-          <label>Tva</label>
-          <input
-            type="text"
-            formControlName="tva"
-            class="form-control"
-            required
-          /> 
-        </div>
-      </div>
-      <div class="form-group text-right">
-        <button
-          type="button"
-          class="btn btn-secondary gap-right"
-          (click)="ResetForm()"
-        >
-          Reset
-        </button>
-        <button
-          type="submit"
-          class="btn btn-success"
-          [disabled]="!companyForm.valid"
-        >
-          Add Company
-        </button>
       </div>
     </div>
   </div>
-</form>
+</div>
