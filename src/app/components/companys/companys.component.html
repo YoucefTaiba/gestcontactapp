@@ -1,30 +1,30 @@
 <div class="list row">
-	<div class="col-md-3">
-		<pagination-controls previousLabel="Prev" nextLabel="Next"
-			[responsive]="true" (pageChange)="handlePageChange($event)">
+	<div class="col-md-2">
+		<a class="btn btn-success" routerLink="/add-company">
+			Add Company
+		</a>
+	</div>
+	<div class="col-md-4">
+		<pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+			(pageChange)="handlePageChange($event)">
 		</pagination-controls>
 	</div>
-	<div class="col-md-3">
+	<div class="col-md-2">
 		<select (change)="handlePageSizeChange($event)">
 			<option *ngFor="let size of pageSizes" [ngValue]="size">{{
 				size }}</option>
 		</select>
 	</div>
-	<div class="col-md-3">
-		<span class="mr-2 btn-outline-primary btn-sm"
-					routerLink="/add-company">Add</span>
-	</div>
+	
 	<div class="col-md-3 ml-auto">
 		<div class="input-group mb-3">
-			<input type="text" class="form-control" placeholder="Search by title"
-				[(ngModel)]="name" />
+			<input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="name" />
 			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button"
-					(click)="searchCompany()">Search</button>
+				<button class="btn btn-outline-secondary" type="button" (click)="searchCompany()">Search</button>
 			</div>
 		</div>
-	</div> 
-	<div class="col-md-12"> 
+	</div>
+	<div class="col-md-12">
 		<table class="table table-bordered">
 			<tr>
 				<th>ID</th>
@@ -33,8 +33,7 @@
 				<th>Tva</th>
 				<th>Action</th>
 			</tr>
-			<tr
-				*ngFor="let company of companys | paginate : {
+			<tr *ngFor="let company of companys | paginate : {
                   itemsPerPage: pageSize,
                   currentPage: page,
                   totalItems: count
@@ -43,10 +42,9 @@
 				<td>{{ company.nom }}</td>
 				<td>{{ company.adresse }}</td>
 				<td>{{ company.tva }}</td>
-				<td class="text-center action-block"><span
-					class="mr-2 btn-outline-primary btn-sm"
-					routerLink="/company/{{ company?.id }}">Edit</span> <span
-					class="btn-outline-danger btn-sm" (click)="deleteCompany(company)">Delete</span>
+				<td class="text-center action-block"><span class="mr-2 btn-outline-primary btn-sm"
+						routerLink="/company/{{ company?.id }}">Edit</span> <span class="btn-outline-danger btn-sm"
+						(click)="deleteCompany(company)">Delete</span>
 
 				</td>
 			</tr>
