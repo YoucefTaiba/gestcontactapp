@@ -14,14 +14,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
-import { HomeComponent } from './components/home/home.component';
-import { GestContactInterceptor } from './gest-contact.interceptor';
-import { AuthService } from './service/auth.service'; 
-import { StyleManagerService } from "./service/style-manager.service"; 
+import { HomeComponent } from './components/home/home.component'; 
+import { AuthService } from './service/auth.service';  
 import { NgxPaginationModule } from 'ngx-pagination';
-import { HeaderComponent } from './components/header/header.component';
-import { MenuComponent } from './components/menu/menu.component'; 
 import { AppMaterialModule } from "./app-material/app-material.module";
+import { NavComponent } from './components/nav/nav.component';
+import { AuthInterceptor } from './helper/auth.interceptor';
 @NgModule({
   declarations: [
     AppComponent, 
@@ -33,9 +31,8 @@ import { AppMaterialModule } from "./app-material/app-material.module";
     CompanyDetailsComponent,
     ContactDetailsComponent,
     CompanysComponent,
-    HomeComponent,
-    HeaderComponent,
-    MenuComponent
+    HomeComponent, 
+    NavComponent
   ],
   imports: [
     BrowserModule, 
@@ -49,10 +46,10 @@ import { AppMaterialModule } from "./app-material/app-material.module";
     AppMaterialModule,
   ],
   providers: [
-    AuthService,StyleManagerService,
+    AuthService, 
     {
     provide: HTTP_INTERCEPTORS,
-    useClass: GestContactInterceptor,
+    useClass: AuthInterceptor,
     multi: true
   }],
   bootstrap: [AppComponent]

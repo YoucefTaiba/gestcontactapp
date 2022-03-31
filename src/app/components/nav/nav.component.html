@@ -1,0 +1,21 @@
+<nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4" >
+		<a class="navbar-brand  " href="#">PloiScrypts</a> 
+			<ul class="navbar-nav  mt-2 mt-lg-0" *ngIf="isLoggedIn">
+				<li class="nav-item active"><a class="nav-link" routerLink="home">Home <span
+							class="sr-only">(current)</span></a></li>
+				<li class="nav-item"><a class="nav-link" routerLink="contacts">Contacts</a>
+				</li>
+
+				<li class="nav-item"><a class="nav-link" routerLink="companys">Companys</a>
+				</li>
+			</ul>
+			<ul class="navbar-nav mr-auto" *ngIf="isLoggedIn">
+				<li class="nav-item ">
+					 <button class="btn-outline-danger" (click)="logout()">LogOut</button>
+				</li>
+			</ul>
+			<ul class="navbar-nav ml-auto"  *ngIf="!isLoggedIn">
+
+				<li class="nav-item"><a href="/login" class="nav-link" routerLink="login">Login</a></li>
+			</ul> 
+</nav>

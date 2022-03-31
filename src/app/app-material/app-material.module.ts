@@ -21,6 +21,17 @@ import { MatMenuModule } from "@angular/material/menu";
         MatListModule,
         MatProgressSpinnerModule,
         MatMenuModule
+    ],
+    exports:[
+        MatCardModule,
+        MatInputModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatSidenavModule,
+        MatIconModule,
+        MatListModule,
+        MatProgressSpinnerModule,
+        MatMenuModule
     ]
 } )
 export class AppMaterialModule { }

@@ -1,53 +1,54 @@
 <div class="list row">
-	<div class="col-md-2">
-		<a class="btn btn-success" routerLink="/add-company">
-			Add Company
-		</a>
-	</div>
-	<div class="col-md-4">
-		<pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
-			(pageChange)="handlePageChange($event)">
-		</pagination-controls>
-	</div>
-	<div class="col-md-2">
-		<select (change)="handlePageSizeChange($event)">
-			<option *ngFor="let size of pageSizes" [ngValue]="size">{{
+  <div class="col-md-2">
+    <a *ngIf="isManager" class="btn btn-success" routerLink="/add-company">
+      Add Company
+    </a>
+  </div>
+  <div class="col-md-4">
+    <pagination-controls previousLabel="Prev" nextLabel="Next" [responsive]="true"
+      (pageChange)="handlePageChange($event)">
+    </pagination-controls>
+  </div>
+  <div class="col-md-2">
+    <select (change)="handlePageSizeChange($event)">
+      <option *ngFor="let size of pageSizes" [ngValue]="size">{{
 				size }}</option>
-		</select>
-	</div>
-	
-	<div class="col-md-3 ml-auto">
-		<div class="input-group mb-3">
-			<input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="name" />
-			<div class="input-group-append">
-				<button class="btn btn-outline-secondary" type="button" (click)="searchCompany()">Search</button>
-			</div>
-		</div>
-	</div>
-	<div class="col-md-12">
-		<table class="table table-bordered">
-			<tr>
-				<th>ID</th>
-				<th>Company Name</th>
-				<th>Adresse</th>
-				<th>Tva</th>
-				<th>Action</th>
-			</tr>
-			<tr *ngFor="let company of companys | paginate : {
+    </select>
+  </div>
+
+  <div class="col-md-3 ml-auto">
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="name" />
+      <div class="input-group-append">
+        <button class="btn btn-outline-secondary" type="button" (click)="searchCompany()">Search</button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-12">
+    <table class="table table-bordered">
+      <tr>
+        <th>ID</th>
+        <th>Company Name</th>
+        <th>Adresse</th>
+        <th>Tva</th>
+        <th *ngIf="isManager">Action</th>
+      </tr>
+      <tr *ngFor="let company of companys | paginate : {
                   itemsPerPage: pageSize,
                   currentPage: page,
                   totalItems: count
                 }; let i = index">
-				<td>{{ company.id }}</td>
-				<td>{{ company.nom }}</td>
-				<td>{{ company.adresse }}</td>
-				<td>{{ company.tva }}</td>
-				<td class="text-center action-block"><span class="mr-2 btn-outline-primary btn-sm"
-						routerLink="/company/{{ company?.id }}">Edit</span> <span class="btn-outline-danger btn-sm"
-						(click)="deleteCompany(company)">Delete</span>
-
-				</td>
-			</tr>
-		</table>
-	</div>
+        <td>{{ company.id }}</td>
+        <td>{{ company.nom }}</td>
+        <td>{{ company.adresse }}</td>
+        <td>{{ company.tva }}</td>
+        <td *ngIf="isManager" class="text-center action-block">
+          <a class="mr-2 btn btn-success" routerLink="/company/{{ company?.id }}">
+            Edit
+          </a>
+          <button type="button" class="btn btn-danger" (click)="deleteCompany(company)">Delete</button>  
+        </td>
+      </tr>
+    </table>
+  </div>
 </div>
