@@ -4,6 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { Contact } from '../models/contact.model';
 import { environment } from 'src/environments/environment';
 import { retry, catchError } from 'rxjs/operators';
+import { Job } from '../models/job.model';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,9 @@ export class ContactService {
   }
   public getContact(contactId: number): Observable<Contact> {
     return this.http.get<Contact>(`${this.apiServiceUrl}/contact/find/${contactId}`);
+  }
+  public getContactJobs(contactId: number): Observable<Job[]> {
+    return this.http.get<Job[]>(`${this.apiServiceUrl}/contact/jobs/${contactId}`);
   }
 
   public addContact(contact: Contact): Observable<Contact> {

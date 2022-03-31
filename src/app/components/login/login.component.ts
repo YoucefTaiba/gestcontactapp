@@ -7,13 +7,12 @@ import { AuthService } from 'src/app/service/auth.service';
     selector: 'app-login',
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.css']
-}) 
+})
 @Injectable()
 export class LoginComponent implements OnInit {
     form: FormGroup;
-    router: Router;
-    isLoggedIn = false;
-    public showSpinner: boolean = false;
+    router: Router; 
+    showSpinner: boolean = false;
     constructor(private fb: FormBuilder,
         private authService: AuthService,
         router: Router) {
@@ -27,7 +26,7 @@ export class LoginComponent implements OnInit {
     }
 
     login(): void {
-        this.authService.signIn(this.form.value);
-        this.isLoggedIn = true;
+        this.authService.signIn(this.form.value); 
+        this.authService.isUserLoggedIn.next(true);
     }
 } 

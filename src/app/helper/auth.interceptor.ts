@@ -7,13 +7,12 @@ import {
     HttpErrorResponse
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, throwError, from } from 'rxjs';
-import { catchError, filter, finalize, switchMap, take } from 'rxjs/operators';
-import { AuthService } from './service/auth.service'
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators'; 
 import { Router } from '@angular/router';
-// const observable = from(Promise);
+import { AuthService } from '../service/auth.service'; 
 @Injectable()
-export class GestContactInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
     constructor(private authService: AuthService, private router: Router) { }
 
 
@@ -28,9 +27,7 @@ export class GestContactInterceptor implements HttpInterceptor {
                          this.router.navigate(['login']);
                     } else {
                         this.authService.refreshToken();
-                    }
-                //     return throwError(() => new Error(requestError.message || requestError.statusText));
-                // } 
+                    } 
 
                 return throwError(() => new Error(requestError.message || requestError.statusText));
             })

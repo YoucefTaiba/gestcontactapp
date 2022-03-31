@@ -9,11 +9,14 @@ import {
 import { Router } from '@angular/router';
 import { User } from '../models/user.model';
 import { environment } from 'src/environments/environment';
+import { BehaviorSubject } from 'rxjs';
 @Injectable()
 export class AuthService {
     endpoint: string = environment.apiBaseUrl;
     headers = new HttpHeaders().set('Content-Type', 'application/json');
     currentUser = {};
+    
+    public isUserLoggedIn: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
     constructor(private http: HttpClient, public router: Router) {
         localStorage.removeItem('acesse_token');
         localStorage.removeItem('refresh_token');
@@ -27,7 +30,7 @@ export class AuthService {
     signIn(user: User) {
         return this.http
             .post<any>(`${this.endpoint}/login`, user)
-            .subscribe((res: any) => {
+            .subscribe((res: any) => { 
                 localStorage.setItem('acesse_token', res.acesse_token);
                 localStorage.setItem('refresh_token', res.refresh_token);
                 localStorage.setItem('roles', res.roles);

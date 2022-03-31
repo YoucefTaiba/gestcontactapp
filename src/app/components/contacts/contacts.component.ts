@@ -16,15 +16,15 @@ export class ContactsComponent implements OnInit {
   count = 0;
   pageSize = 3;
   pageSizes = [3, 6, 9];
-  showManager = false;
-  showUser = false;
+  isManager = false;
+  isUser = false;
   constructor(private contactService: ContactService, private authService: AuthService) { }
 
   ngOnInit(): void {
     if (this.authService.isLoggedIn) {
             const roles = this.authService.getRoles;
-            this.showManager = roles.includes('ROLE_MANGER');
-            this.showUser = roles.includes('ROLE_USER');
+            this.isManager = roles.includes('ROLE_MANAGER');
+            this.isUser = roles.includes('ROLE_USER');
         } 
     this.getContacts();
 

@@ -45,10 +45,8 @@
 							</div>
 						</div>
 						<!-- details jobs-->
-						<div class="d-flex align-items-center">
-							<div>
-								<h5 class="mb-0">Jobs</h5>
-							</div>
+						<div class="d-flex align-items-right">
+							
 							<div class="ms-auto">
 								<a href="javascript:;" class="btn btn-sm btn-outline-secondary">Add Job</a>
 							</div>
@@ -64,17 +62,17 @@
 									</tr>
 								</thead>
 								<tbody>
-									<tr>
+									<tr *ngFor="let job of jobs">
 										<td>
 											<div class="d-flex align-items-center">
 												<div><i class="bx bxs-file-pdf me-2 font-12 text-danger"></i>
 												</div>
-												<div class="font-weight-bold text-danger">tittrz</div>
+												<div class="font-weight-bold text-danger">{{job.titre}}</div>
 											</div>
 										</td>
-										<td>Only you</td>
-										<td>Sep 3, 2019</td>
-										<td><i class="fa fa-ellipsis-h font-24"></i>
+										<td>{{job.company.nom}}</td>
+										<td>{{job.freelance?"true":"false"}}</td>
+										<td>{{job.tva}}
 										</td>
 									</tr>
 
