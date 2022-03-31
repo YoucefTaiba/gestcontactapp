@@ -49,8 +49,7 @@ export class CompanysComponent implements OnInit {
                 (response: { companys: any; currentPage: number; totalItems: number; totalPages: number }) => {
                     // const { companys, totalItems } = response;
                     this.companys = response.companys;
-                    this.count = response.totalItems;
-                    console.log(response);
+                    this.count = response.totalItems; 
                 },
                 (error: any) => {
                     console.log(error);
@@ -63,7 +62,7 @@ export class CompanysComponent implements OnInit {
                   this.companys.splice(index, 1);
             });
         }else{
-            return null;
+            return false;
         }
     }
 }

@@ -20,6 +20,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { AppMaterialModule } from "./app-material/app-material.module";
 import { NavComponent } from './components/nav/nav.component';
 import { AuthInterceptor } from './helper/auth.interceptor';
+import { AuthGuard } from './helper/auth.guard';
+import { ErrorInterceptor } from './helper/error.interceptor';
+import { MessageComponent } from './components/message/message.component';
 @NgModule({
   declarations: [
     AppComponent, 
@@ -32,7 +35,7 @@ import { AuthInterceptor } from './helper/auth.interceptor';
     ContactDetailsComponent,
     CompanysComponent,
     HomeComponent, 
-    NavComponent
+    NavComponent, MessageComponent
   ],
   imports: [
     BrowserModule, 
@@ -46,7 +49,11 @@ import { AuthInterceptor } from './helper/auth.interceptor';
     AppMaterialModule,
   ],
   providers: [
-    AuthService, 
+    AuthService,  AuthGuard, {
+        provide: HTTP_INTERCEPTORS,
+        useClass: ErrorInterceptor,
+        multi: true
+    },
     {
     provide: HTTP_INTERCEPTORS,
     useClass: AuthInterceptor,
