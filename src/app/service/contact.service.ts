@@ -37,8 +37,15 @@ export class ContactService {
     return this.http.put<Contact>(`${this.apiServiceUrl}/contact/update/` + id, contact).pipe(retry(1), catchError(this.errorHandl));
   }
   public deleteContact(contactId: number) {
-    return this.http.delete(`${this.apiServiceUrl}/contact/delete/${contactId}`);
+    return this.http.delete(`${this.apiServiceUrl}/contact/delete/${contactId}`).pipe(retry(1), catchError(this.errorHandl));;
   }
+  public addJob(contactId: number, job :Job) {
+      return this.http.put(`${this.apiServiceUrl}/contact/addjob/${contactId}`,job).pipe(retry(1), catchError(this.errorHandl));;
+    }
+  public deleteJob(contactId: number, jobId :number):any {
+      return this.http.delete(`${this.apiServiceUrl}/contact/deletejob/${contactId}/${jobId}`).pipe(retry(1), catchError(this.errorHandl));;
+    }
+  
   // Error handling
   errorHandl(error: { error: { message: string; }; status: any; message: any; }) {
     let errorMessage = '';
