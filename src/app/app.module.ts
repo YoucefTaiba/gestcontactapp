@@ -17,12 +17,13 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HomeComponent } from './components/home/home.component'; 
 import { AuthService } from './service/auth.service';  
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ModalModule, BsModalService } from 'ngx-bootstrap/modal'; 
 import { AppMaterialModule } from "./app-material/app-material.module";
 import { NavComponent } from './components/nav/nav.component';
 import { AuthInterceptor } from './helper/auth.interceptor';
 import { AuthGuard } from './helper/auth.guard';
 import { ErrorInterceptor } from './helper/error.interceptor';
-import { MessageComponent } from './components/message/message.component';
+import { MessageComponent } from './components/message/message.component'; 
 @NgModule({
   declarations: [
     AppComponent, 
@@ -35,7 +36,8 @@ import { MessageComponent } from './components/message/message.component';
     ContactDetailsComponent,
     CompanysComponent,
     HomeComponent, 
-    NavComponent, MessageComponent
+    NavComponent, 
+    MessageComponent 
   ],
   imports: [
     BrowserModule, 
@@ -47,9 +49,10 @@ import { MessageComponent } from './components/message/message.component';
     LayoutModule,
     NgxPaginationModule, 
     AppMaterialModule,
+    ModalModule.forRoot(),
   ],
   providers: [
-    AuthService,  AuthGuard, {
+    AuthService,  AuthGuard,BsModalService, {
         provide: HTTP_INTERCEPTORS,
         useClass: ErrorInterceptor,
         multi: true
