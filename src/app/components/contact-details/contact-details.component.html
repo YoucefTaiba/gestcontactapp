@@ -1,153 +1,132 @@
 <div *ngIf="contact">
-	<div class="container">
-		<div class="main-body">
-			<div class="row">
-				<div class="col-lg-8">
-					<div class="contact">
-						<div class="card">
-							<div class="card-body">
-								<!-- Form Row-->
-								<div class="row gx-3 mb-3">
-									<!-- Form Group (first name)-->
-									<div class="col-md-6">
-										<label class="small mb-1" for="contact-nom">First name</label>
-										<input class="form-control" id="contact-nom" type="text"
-											placeholder="first name" [(ngModel)]="contact.nom">
-									</div>
-									<!-- Form Group (last name)-->
-									<div class="col-md-6">
-										<label class="small mb-1" for="contact-prenom">Last
-											name</label> <input class="form-control" id="contact-prenom"
-											type="text" placeholder="last name"
-											[(ngModel)]="contact.prenom">
-									</div>
-								</div>
+  <div class="container">
+    <div class="main-body">
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="contact">
+            <div class="card">
+              <div class="card-body">
+                <!-- Form Row-->
+                <div class="row gx-3 mb-3">
+                  <!-- Form Group (first name)-->
+                  <div class="col-md-6">
+                    <label class="small mb-1" for="contact-nom">First name</label>
+                    <input class="form-control" id="contact-nom" type="text" placeholder="first name"
+                      [(ngModel)]="contact.nom">
+                  </div>
+                  <!-- Form Group (last name)-->
+                  <div class="col-md-6">
+                    <label class="small mb-1" for="contact-prenom">Last
+                      name</label> <input class="form-control" id="contact-prenom" type="text" placeholder="last name"
+                      [(ngModel)]="contact.prenom">
+                  </div>
+                </div>
 
-								<!-- Form Group (email address)-->
-								<div class="mb-3">
-									<label class="small mb-1" for="contact-adresse">Address</label>
-									<input class="form-control" id="contact-adresse" type="text"
-										placeholder="address" [(ngModel)]="contact.adresse">
-								</div>
+                <!-- Form Group (email address)-->
+                <div class="mb-3">
+                  <label class="small mb-1" for="contact-adresse">Address</label>
+                  <input class="form-control" id="contact-adresse" type="text" placeholder="address"
+                    [(ngModel)]="contact.adresse">
+                </div>
 
-								<!-- Save changes button-->
-								<div class="row">
-									<div class="col-sm-3"></div>
-									<div class="col-sm-3 text-secondary">
-										<button type="button" (click)="goBack()"
-											class="btn btn-danger px-4">Cancle</button>
-									</div>
-									<div class="col-sm-6 text-secondary">
+                <!-- Save changes button-->
+                <div class="row">
+                  <div class="col-sm-3"></div>
+                  <div class="col-sm-3 text-secondary">
+                    <button type="button" (click)="goBack()" class="btn btn-danger px-4">Cancle</button>
+                  </div>
+                  <div class="col-sm-6 text-secondary">
 
-										<button type="button" (click)="save()"
-											class="btn btn-success px-4">Save</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- details jobs-->
-						<div class="d-flex align-items-right">
-							<div class="ms-auto">
-								<button type="button" class="btn btn-sm btn-outline-primary"
-									data-toggle="modal" data-target="#jobModal">Add Job</button>
-							</div>
-						</div>
-						<div class="table-responsive mt-3">
-							<table class="table table-striped table-hover table-sm mb-0">
-								<thead>
-									<tr>
-										<th>Titre</th>
-										<th>Entreprise</th>
-										<th>Freelance</th>
-										<th>TVA</th>
-										<th></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr *ngFor="let job of  jobs; let i = index">
-										<td>
-											<div class="d-flex align-items-center">
-												<div>
-													<i class="bx bxs-file-pdf me-2 font-12 text-danger"></i>
-												</div>
-												<div class="font-weight-bold text-danger">{{job.titre}}</div>
-											</div>
-										</td>
-										<td>{{job.company.nom}}</td>
-										<td>{{job.freelance?"true":"false"}}</td>
-										<td>{{job.tva}}</td>
-										<td>
-											<button type="button" class="btn btn-outline-danger"
-												(click)="deleteJob(i,job)">delete</button>
-										</td>
-									</tr>
+                    <button type="button" (click)="save()" class="btn btn-success px-4">Save</button>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-								</tbody>
-							</table>
-						</div>
-						<div class="modal fade" id="jobModal" tabindex="-1" role="dialog"
-							aria-labelledby="jobModalLabel" aria-hidden="true">
-							<div class="modal-dialog" role="document">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h5 class="modal-title" id="exampleModalLabel">Job</h5>
-										<button type="button" class="close" data-dismiss="modal"
-											aria-label="Close">
-											<span aria-hidden="true">&times;</span>
-										</button>
-									</div>
-									<div class="modal-body">
-										<form [formGroup]="jobForm" novalidate>
-											<!-- Form Row-->
-											<div class="mb-3">
-												<label class="small mb-1" for="job-titre">Titre
-													name</label> <input class="form-control" id="job-titre"
-													type="text" placeholder="Titre" formControlName="titre">
+            <div class="d-flex align-items-right">
+              <div class="ms-auto">
+                <button type="button" class="btn btn-sm btn-outline-primary" (click)="openModal(modalTemplate)">Add
+                  Job</button>
+              </div>
+            </div>
+            <ng-template #modalTemplate>
+              <div class="modal-header">
+                <h5 class="modal-title" id="jobHeaderModalLabel">Job</h5>
+                <button type="button" class="close" (click)="closeModle(1)">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form [formGroup]="jobForm" novalidate>
+                  <div class="mb-3">
+                    <label class="small mb-1" for="job-titre">Titre
+                      name</label> <input class="form-control" id="job-titre" type="text" placeholder="Titre"
+                      formControlName="titre">
 
-											</div> 
-											<!-- Form Group (email address)-->
-											<div class="mb-3">
-												<label class="small mb-1" for="job-company">Compnay</label>
-												<select class="form-control" id="job-company"
-													  formControlName="company">
-													<option value="">Choose Compnay</option>
-													<option *ngFor="let company of companys"
-														[ngValue]="company.id">{{ company.nom }}</option>
-												</select>
+                  </div>
+                  <div class="mb-3">
+                    <label class="small mb-1" for="job-company">Compnay</label>
+                    <select class="form-control" id="job-company" formControlName="company">
+                      <option value="">Choose Compnay</option>
+                      <option *ngFor="let company of companys" [ngValue]="company">{{ company.nom }}</option>
+                    </select>
 
-											</div>
-											<div class="row gx-3 mb-3">
-												<!-- Form Group (first name)-->
-												<div class="col-md-6">
-													<label class="small mb-1" for="job-freelance">FreeLance
-														name</label> <select class="form-control" id="job-freelance"
-														 formControlName="freelance">
-														<option value="false" selected="selected">No</option>
-														<option value="true">Yes</option>
-													</select>
-												</div>
-												<!-- Form Group (last name)-->
-												<div class="col-md-6">
-													<label class="small mb-1" for="job-tva">TVA
-														name</label> <input class="form-control" id="job-tva"
-														type="text" placeholder="TVA"
-														formControlName="tva">
-												</div>
-											</div>
-										</form>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary"
-											data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Add Job</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- fin jobs-->
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                  </div>
+                  <div class="row gx-3 mb-3">
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="job-freelance">FreeLance
+                        name</label> <select class="form-control" id="job-freelance" formControlName="freelance">
+                        <option value="false" selected="selected">No</option>
+                        <option value="true">Yes</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="small mb-1" for="job-tva">TVA
+                        name</label> <input class="form-control" id="job-tva" type="text" placeholder="TVA"
+                        formControlName="tva">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  (click)="closeModle(1)">Close</button>
+                <button type="submit" class="btn btn-primary"(click)="closeModle(2)" >Add Job</button>
+              </div>
+            </ng-template>
+            <div class="table-responsive mt-3">
+              <table class="table table-striped table-hover table-sm mb-0">
+                <thead>
+                  <tr>
+                    <th>Titre</th>
+                    <th>Entreprise</th>
+                    <th>Freelance</th>
+                    <th>TVA</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let job of  jobs; let i = index">
+                    <td>
+                      <div class="d-flex align-items-center">
+                        <div>
+                          <i class="bx bxs-file-pdf me-2 font-12 text-danger"></i>
+                        </div>
+                        <div class="font-weight-bold text-danger">{{job.titre}}</div>
+                      </div>
+                    </td>
+                    <td>{{job.company.nom}}</td>
+                    <td>{{job.freelance?"true":"false"}}</td>
+                    <td>{{job.tva}}</td>
+                    <td>
+                      <button type="button" class="btn btn-outline-danger" (click)="deleteJob(i,job)">delete</button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

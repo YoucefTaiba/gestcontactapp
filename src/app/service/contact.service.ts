@@ -39,8 +39,8 @@ export class ContactService {
   public deleteContact(contactId: number) {
     return this.http.delete(`${this.apiServiceUrl}/contact/delete/${contactId}`).pipe(retry(1), catchError(this.errorHandl));;
   }
-  public addJob(contactId: number, job :Job) {
-      return this.http.put(`${this.apiServiceUrl}/contact/addjob/${contactId}`,job).pipe(retry(1), catchError(this.errorHandl));;
+  public addJob(contactId: number, job :Job): Observable<Job>{
+      return this.http.put<Job>(`${this.apiServiceUrl}/contact/addjob/${contactId}`,job).pipe(retry(1), catchError(this.errorHandl));;
     }
   public deleteJob(contactId: number, jobId :number):any {
       return this.http.delete(`${this.apiServiceUrl}/contact/deletejob/${contactId}/${jobId}`).pipe(retry(1), catchError(this.errorHandl));;

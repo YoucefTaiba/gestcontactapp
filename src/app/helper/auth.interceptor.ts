@@ -23,6 +23,10 @@ export class AuthInterceptor implements HttpInterceptor {
     ): Observable<HttpEvent<unknown>> {
         return next.handle( this.addAuthToken( request ) ).pipe(
             catchError(( requestError: HttpErrorResponse ) => {
+                if ( requestError && requestError.status === 403 ) {
+                     this.authService.doLogout();
+                     return throwError(() => new Error( requestError.message ) );
+                }
                 if ( requestError && requestError.status === 401 ) {
                     if ( this.refreshTokenInProgress ) {
                         return this.refreshTokenSubject.pipe(
@@ -35,16 +39,7 @@ export class AuthInterceptor implements HttpInterceptor {
                         this.refreshTokenSubject.next( null );
                         this.authService.refreshToken();
                         this.refreshTokenInProgress = false
-                        return next.handle( this.addAuthToken( request ) );
-                        /*
-                        return this.authService.refreshToken().pipe(
-                                filter(( token ) => token !== token ),
-                                switchMap(( token ) => {
-                                this.refreshTokenSubject.next( token );
-                                return next.handle( this.addAuthToken( request ) );
-                            } ),
-                            finalize(() => ( this.refreshTokenInProgress = false ) )
-                        );*/
+                        return next.handle( this.addAuthToken( request ) ); 
                     }
                 } else {
                     return throwError(() => new Error( requestError.message ) );
